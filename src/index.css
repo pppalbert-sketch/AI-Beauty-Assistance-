@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: 253 250 247;
+    --surface: 255 255 255;
+    --text: 28 24 36;
+    --muted: 90 82 104;
+  }
+
+  .dark {
+    --bg: 12 10 20;
+    --surface: 22 18 34;
+    --text: 244 240 250;
+    --muted: 170 162 190;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    background-color: rgb(var(--bg));
+    color: rgb(var(--text));
+    overflow-x: hidden;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+
+  ::selection {
+    @apply bg-blush-300/50 text-blush-900;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight;
+  }
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-blush-300/50 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-blush-400/70;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/60 dark:bg-white/[0.06] backdrop-blur-xl border border-white/40 dark:border-white/10;
+  }
+
+  .glass-strong {
+    @apply bg-white/80 dark:bg-white/[0.08] backdrop-blur-2xl border border-white/60 dark:border-white/10;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blush-500 via-lavender-500 to-blush-400;
+  }
+
+  .btn-primary {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-semibold text-white
+      bg-gradient-to-r from-blush-500 to-lavender-500 shadow-lg shadow-blush-500/30
+      transition-all duration-300 hover:shadow-xl hover:shadow-blush-500/40 hover:-translate-y-0.5
+      focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blush-400/40;
+  }
+
+  .btn-secondary {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-semibold
+      glass text-[rgb(var(--text))] transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/80 dark:hover:bg-white/10
+      focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-lavender-400/30;
+  }
+
+  .section-pad {
+    @apply px-5 sm:px-8 lg:px-12;
+  }
+
+  .container-xl {
+    @apply mx-auto max-w-7xl;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em]
+      glass text-[rgb(var(--muted))];
+  }
+}
+
+@layer utilities {
+  .text-muted {
+    color: rgb(var(--muted));
+  }
+
+  .bg-mesh {
+    background-image:
+      radial-gradient(at 20% 18%, rgba(248, 168, 198, 0.45) 0px, transparent 50%),
+      radial-gradient(at 78% 12%, rgba(196, 181, 253, 0.42) 0px, transparent 50%),
+      radial-gradient(at 85% 78%, rgba(251, 207, 224, 0.4) 0px, transparent 50%),
+      radial-gradient(at 12% 82%, rgba(221, 214, 254, 0.38) 0px, transparent 50%);
+  }
+
+  .dark .bg-mesh {
+    background-image:
+      radial-gradient(at 20% 18%, rgba(212, 38, 98, 0.22) 0px, transparent 50%),
+      radial-gradient(at 78% 12%, rgba(124, 58, 237, 0.24) 0px, transparent 50%),
+      radial-gradient(at 85% 78%, rgba(232, 70, 127, 0.16) 0px, transparent 50%),
+      radial-gradient(at 12% 82%, rgba(109, 40, 217, 0.2) 0px, transparent 50%);
+  }
+
+  .animate-gradient-bg {
+    background-size: 200% 200%;
+  }
+
+  .glow-ring {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 0 40px -8px rgba(232, 70, 127, 0.5),
+      0 0 80px -20px rgba(139, 92, 246, 0.4);
+  }
+}
