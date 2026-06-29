@@ -17,7 +17,7 @@ smooth scroll animations, and a polished light **and** dark mode.
 - **Full feature showcase** — AI Skin Analysis, Morning & Night Routine, Ingredient Checker, Product
   Inventory, Progress Tracker, Hair Care, Makeup Organizer, Wellness Tracking, and AI Beauty Coach.
 - **Conversion sections** — trusted social proof, Traditional vs BeautyAI comparison, testimonials,
-  3-tier pricing (Free / Premium / VIP) with monthly–yearly toggle, affiliate marketplace,
+  pricing (Free & Premium) with a monthly–yearly billing toggle, affiliate marketplace,
   future-ecosystem roadmap, and an app download section with QR code.
 - **Dark & light mode** with no flash on load and system-preference detection.
 - **Accessible, SEO-ready, and fast** — semantic markup, reduced-motion support, Open Graph + JSON-LD
