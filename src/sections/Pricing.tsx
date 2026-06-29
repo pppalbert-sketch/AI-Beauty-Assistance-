@@ -1,17 +1,16 @@
-import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Check, Sparkles, Gift } from 'lucide-react'
+import { Check, Crown, Sparkles, Gift } from 'lucide-react'
 import { SectionHeading } from '../components/SectionHeading'
-import { Reveal } from '../components/Reveal'
 
 interface Plan {
   name: string
   icon: typeof Gift
   tagline: string
-  /** price per month when billed monthly */
-  monthly: number
-  /** total price when billed annually */
-  annual: number
+  price: number
+  /** billing period shown next to the price */
+  period: string
+  /** small note under the price */
+  note?: string
   features: string[]
   cta: string
   highlight?: boolean
@@ -23,8 +22,8 @@ const plans: Plan[] = [
     name: 'Free',
     icon: Gift,
     tagline: 'Start your glow-up journey',
-    monthly: 0,
-    annual: 0,
+    price: 0,
+    period: 'forever',
     features: ['Routine tracker', 'Water tracking', 'Beauty calendar', 'Basic AI assistant'],
     cta: 'Get Started Free',
     accent: 'from-zinc-400 to-zinc-500',
@@ -33,8 +32,9 @@ const plans: Plan[] = [
     name: 'Premium',
     icon: Sparkles,
     tagline: 'Your full AI beauty coach',
-    monthly: 9.99,
-    annual: 83.99,
+    price: 9.99,
+    period: '/ month',
+    note: 'Billed monthly',
     features: [
       'Unlimited AI coaching',
       'AI skin analysis',
@@ -49,18 +49,30 @@ const plans: Plan[] = [
     highlight: true,
     accent: 'from-blush-500 to-lavender-500',
   },
+  {
+    name: 'VIP',
+    icon: Crown,
+    tagline: 'The ultimate beauty experience',
+    price: 83.99,
+    period: '/ year',
+    note: 'Billed annually · just $7.00/mo',
+    features: [
+      'Everything in Premium',
+      'Personalized beauty plans',
+      'Priority AI responses',
+      'Early feature access',
+      'Exclusive beauty content',
+    ],
+    cta: 'Go VIP',
+    accent: 'from-amber-400 to-orange-500',
+  },
 ]
-
-// Discount of the annual plan vs paying monthly for a year, e.g. 30%.
-const annualSavingsPercent = Math.round((1 - 83.99 / (9.99 * 12)) * 100)
 
 function formatPrice(value: number) {
   return value % 1 === 0 ? value.toFixed(0) : value.toFixed(2)
 }
 
 export function Pricing() {
-  const [yearly, setYearly] = useState(true)
-
   return (
     <section id="pricing" className="relative section-pad py-24">
       <div className="container-xl">
@@ -74,36 +86,9 @@ export function Pricing() {
           subtitle="Start free, upgrade anytime. Cancel whenever you like — no commitments."
         />
 
-        {/* Billing toggle */}
-        <Reveal className="mt-8 flex justify-center">
-          <div className="inline-flex items-center gap-2 rounded-full glass p-1.5">
-            <button
-              onClick={() => setYearly(false)}
-              className={`rounded-full px-5 py-2 text-sm font-semibold transition-all ${
-                !yearly ? 'bg-gradient-to-r from-blush-500 to-lavender-500 text-white shadow' : 'text-muted'
-              }`}
-            >
-              Monthly
-            </button>
-            <button
-              onClick={() => setYearly(true)}
-              className={`flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold transition-all ${
-                yearly ? 'bg-gradient-to-r from-blush-500 to-lavender-500 text-white shadow' : 'text-muted'
-              }`}
-            >
-              Yearly
-              <span className={`rounded-full px-2 py-0.5 text-[10px] ${yearly ? 'bg-white/25' : 'bg-emerald-500/15 text-emerald-600'}`}>
-                Save {annualSavingsPercent}%
-              </span>
-            </button>
-          </div>
-        </Reveal>
-
-        <div className="mx-auto mt-12 grid max-w-3xl items-stretch gap-6 sm:grid-cols-2">
+        <div className="mt-12 grid items-stretch gap-6 lg:grid-cols-3">
           {plans.map((plan, i) => {
-            const isFree = plan.monthly === 0
-            const price = yearly ? plan.annual : plan.monthly
-            const period = isFree ? 'forever' : yearly ? '/ year' : '/ month'
+            const isFree = plan.price === 0
             return (
               <motion.div
                 key={plan.name}
@@ -113,7 +98,7 @@ export function Pricing() {
                 transition={{ duration: 0.6, delay: i * 0.1 }}
                 className={`relative flex flex-col rounded-[2rem] p-7 ${
                   plan.highlight
-                    ? 'glass-strong shadow-2xl shadow-blush-500/20 ring-2 ring-blush-400/40'
+                    ? 'glass-strong shadow-2xl shadow-blush-500/20 lg:-mt-4 lg:mb-4 ring-2 ring-blush-400/40'
                     : 'glass shadow-lg shadow-black/5'
                 }`}
               >
@@ -134,16 +119,17 @@ export function Pricing() {
                 </div>
 
                 <div className="mt-6 flex items-end gap-1">
-                  <span className="font-display text-4xl font-extrabold">${formatPrice(price)}</span>
-                  <span className="mb-1.5 text-sm text-muted">{period}</span>
+                  <span className="font-display text-4xl font-extrabold">${formatPrice(plan.price)}</span>
+                  <span className="mb-1.5 text-sm text-muted">{plan.period}</span>
                 </div>
-                {!isFree && yearly && (
-                  <p className="mt-1 text-xs text-emerald-600 dark:text-emerald-400">
-                    Billed annually · just ${formatPrice(plan.annual / 12)}/mo
+                {plan.note && (
+                  <p
+                    className={`mt-1 text-xs ${
+                      isFree ? 'text-muted' : 'text-emerald-600 dark:text-emerald-400'
+                    }`}
+                  >
+                    {plan.note}
                   </p>
-                )}
-                {!isFree && !yearly && (
-                  <p className="mt-1 text-xs text-muted">Billed monthly</p>
                 )}
 
                 <a
@@ -169,7 +155,7 @@ export function Pricing() {
         </div>
 
         <p className="mt-8 text-center text-xs text-muted">
-          Ready to integrate with Stripe, Apple Pay &amp; Google Pay. 7-day free trial on Premium.
+          Ready to integrate with Stripe, Apple Pay &amp; Google Pay. 7-day free trial on paid plans.
         </p>
       </div>
     </section>
