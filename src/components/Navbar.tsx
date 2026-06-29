@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Sparkles } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { ThemeToggle } from './ThemeToggle'
+import { Logo } from './Logo'
 
 const links = [
   { label: 'Features', href: '#features' },
@@ -33,11 +34,8 @@ export function Navbar() {
         }`}
       >
         {/* Logo */}
-        <a href="#top" className="flex items-center gap-2 pl-2 font-display text-lg font-extrabold">
-          <span className="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-blush-500 to-lavender-500 text-white shadow-md">
-            <Sparkles className="h-4 w-4" />
-          </span>
-          Beauty<span className="text-gradient">AI</span>
+        <a href="#top" aria-label="BeautyAI home" className="pl-2">
+          <Logo />
         </a>
 
         {/* Desktop links */}

@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Sparkles, Instagram, Twitter, Youtube, Facebook, Send, Check } from 'lucide-react'
+import { Instagram, Twitter, Youtube, Facebook, Send, Check } from 'lucide-react'
+import { Logo } from '../components/Logo'
 
 const columns = [
   {
@@ -80,11 +81,8 @@ export function Footer() {
         {/* Main footer */}
         <div className="mt-12 grid gap-10 lg:grid-cols-5">
           <div className="lg:col-span-2">
-            <a href="#top" className="flex items-center gap-2 font-display text-lg font-extrabold">
-              <span className="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-blush-500 to-lavender-500 text-white">
-                <Sparkles className="h-4 w-4" />
-              </span>
-              Beauty<span className="text-gradient">AI</span>
+            <a href="#top" aria-label="BeautyAI home">
+              <Logo />
             </a>
             <p className="mt-4 max-w-xs text-sm text-muted">
               Your personal AI beauty assistant — for healthier skin, organized routines, and
