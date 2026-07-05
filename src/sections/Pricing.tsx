@@ -53,9 +53,9 @@ const plans: Plan[] = [
     name: 'VIP',
     icon: Crown,
     tagline: 'The ultimate beauty experience',
-    price: 83.99,
+    price: 79.99,
     period: '/ year',
-    note: 'Billed annually · just $7.00/mo',
+    note: 'Billed annually · just $6.67/mo',
     features: [
       'Everything in Premium',
       'Personalized beauty plans',
