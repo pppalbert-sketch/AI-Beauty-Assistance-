@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react'
 import { Navbar } from './components/Navbar'
 import { ScrollProgress } from './components/ScrollProgress'
 import { Hero } from './sections/Hero'
@@ -30,6 +31,7 @@ function App() {
         <Download />
       </main>
       <Footer />
+      <Analytics />
     </div>
   )
 }
